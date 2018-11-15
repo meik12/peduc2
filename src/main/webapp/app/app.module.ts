@@ -20,6 +20,7 @@ import { Peduc2EntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
     imports: [
