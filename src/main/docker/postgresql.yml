@@ -1,0 +1,11 @@
+version: '2'
+services:
+    peduc2-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/peduc2/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=peduc2
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

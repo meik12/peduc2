@@ -1,0 +1,34 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.gatech.peduc"
+    },
+    "jhipsterVersion": "5.5.0",
+    "applicationType": "monolith",
+    "baseName": "peduc2",
+    "packageName": "com.gatech.peduc",
+    "packageFolder": "com/gatech/peduc",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YjliZDdlODM1OTIwMWYwMDAyMzAwMGI0M2M4YmE4NmFhNDIxNWIxNzkzODk5OTZlMjE2NTE4MWE5MmZhYTVkMDdmNGFiODhlMDg3NGRjMDg0MWEzZGMyODE4ZDZkYWY2YzY5MmM4OTg1Yjc1ZmRlMjgyMmQ3ODM5MTdjYzljNTY=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "cucumber"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": false
+  }
+}
