@@ -1,0 +1,39 @@
+{
+    "name": "Score",
+    "fields": [
+        {
+            "fieldName": "excellent",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "veryGood",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "fair",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bad",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "peer",
+            "otherEntityName": "peer",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "score"
+        }
+    ],
+    "changelogDate": "20181129040015",
+    "entityTableName": "score",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

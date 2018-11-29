@@ -1,0 +1,153 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-lecture-heading">Create or edit a Lecture</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!lecture.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="lecture.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <input type="text" class="form-control" name="category" id="field_category"
+                        [(ngModel)]="lecture.category" required/>
+                    <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.category?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_topic">Topic</label>
+                    <input type="text" class="form-control" name="topic" id="field_topic"
+                        [(ngModel)]="lecture.topic" required/>
+                    <div [hidden]="!(editForm.controls.topic?.dirty && editForm.controls.topic?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.topic?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="lecture.title" required/>
+                    <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.title?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_keyWord">Key Word</label>
+                    <input type="text" class="form-control" name="keyWord" id="field_keyWord"
+                        [(ngModel)]="lecture.keyWord" required/>
+                    <div [hidden]="!(editForm.controls.keyWord?.dirty && editForm.controls.keyWord?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.keyWord?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_duration">Duration</label>
+                    <input type="number" class="form-control" name="duration" id="field_duration"
+                        [(ngModel)]="lecture.duration" required/>
+                    <div [hidden]="!(editForm.controls.duration?.dirty && editForm.controls.duration?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.duration?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.duration?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                        [(ngModel)]="lecture.status" required/>
+                    <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.status?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_language">Language</label>
+                    <input type="text" class="form-control" name="language" id="field_language"
+                        [(ngModel)]="lecture.language" required/>
+                    <div [hidden]="!(editForm.controls.language?.dirty && editForm.controls.language?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.language?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_videoCallLink">Video Call Link</label>
+                    <input type="text" class="form-control" name="videoCallLink" id="field_videoCallLink"
+                        [(ngModel)]="lecture.videoCallLink" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_presentationDate">Presentation Date</label>
+                    <div class="d-flex">
+                        <input id="field_presentationDate" type="datetime-local" class="form-control" name="presentationDate" [(ngModel)]="presentationDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.presentationDate?.dirty && editForm.controls.presentationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.presentationDate?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.presentationDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_timeZone">Time Zone</label>
+                    <input type="text" class="form-control" name="timeZone" id="field_timeZone"
+                        [(ngModel)]="lecture.timeZone" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_publicationDate">Publication Date</label>
+                    <div class="d-flex">
+                        <input id="field_publicationDate" type="datetime-local" class="form-control" name="publicationDate" [(ngModel)]="publicationDate"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_peer">Peer</label>
+                    <select class="form-control" id="field_peer" name="peer" [(ngModel)]="lecture.peer" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="peerOption.id === lecture.peer?.id ? lecture.peer : peerOption" *ngFor="let peerOption of peers; trackBy: trackPeerById">{{peerOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="lecture.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === lecture.user?.id ? lecture.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

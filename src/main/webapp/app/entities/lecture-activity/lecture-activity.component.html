@@ -1,0 +1,89 @@
+<div>
+    <h2 id="page-heading">
+        <span>Lecture Activities</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lecture-activity" [routerLink]="['/lecture-activity/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Lecture Activity
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="lectureActivities">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Presenting User Id</span></th>
+            <th><span>Atending User Id</span></th>
+            <th><span>Lecture Status</span></th>
+            <th><span>Presentation Date</span></th>
+            <th><span>Posted Date</span></th>
+            <th><span>Lecture</span></th>
+            <th><span>User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let lectureActivity of lectureActivities ;trackBy: trackId">
+                <td><a [routerLink]="['/lecture-activity', lectureActivity.id, 'view' ]">{{lectureActivity.id}}</a></td>
+                <td>{{lectureActivity.presentingUserId}}</td>
+                <td>{{lectureActivity.atendingUserId}}</td>
+                <td>{{lectureActivity.lectureStatus}}</td>
+                <td>{{lectureActivity.presentationDate | date:'medium'}}</td>
+                <td>{{lectureActivity.postedDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="lectureActivity.lecture">
+                        <a [routerLink]="['../lecture', lectureActivity.lecture?.id, 'view' ]" >{{lectureActivity.lecture?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let user of lectureActivity.users; let last = last">
+                            {{user.id}}{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/lecture-activity', lectureActivity.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/lecture-activity', lectureActivity.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'lecture-activity/'+ lectureActivity.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

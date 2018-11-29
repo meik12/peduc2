@@ -1,0 +1,90 @@
+
+entity Peer {
+
+    profilePicture ImageBlob,
+	firstName String required,
+	lastName String required,
+    averageScore Integer,
+    interestAreas String,
+	email String required,
+    password String required
+}
+entity SuggestedLecture {
+
+    profilePicture ImageBlob,
+	firstName String required,
+	lastName String required,
+    averageScore Integer,
+    category String required,
+	title String required,
+    duration Integer required,
+    language String required,
+    videoCallLink String,
+    presentationDate ZonedDateTime required,
+    timeZone String,
+    publicationDate Instant
+    
+}
+ enum LectureStatus {
+ 		ACTIVE, SCORE, REJECTED 
+ }
+  entity LectureActivity {
+  	presentingUserId Long,
+    atendingUserId Long,
+    lectureStatus LectureStatus,
+    presentationDate ZonedDateTime,
+    postedDate ZonedDateTime,
+  }
+entity Lecture {
+
+    category String required,
+	topic String required,
+	title String required,
+    keyWord String required,
+    duration Integer required,
+    status String required,
+    language String required,
+    videoCallLink String,
+    presentationDate ZonedDateTime required,
+    timeZone String,
+    publicationDate Instant
+    
+}
+
+entity Score {
+    excellent Integer,
+	veryGood Integer,
+	fair Integer,
+    bad Integer
+}
+
+relationship OneToOne {
+
+    Peer{score} to Score{peer}
+    Peer{user} to User
+    LectureActivity{lecture} to Lecture
+    
+    
+}
+
+relationship ManyToOne {
+    SuggestedLecture{peer} to Peer
+    Lecture{peer} to Peer
+    Lecture{user} to User
+    SuggestedLecture{user} to User
+}
+relationship ManyToMany {
+    LectureActivity{user} to User  
+}
+
+// Set pagination options
+paginate SuggestedLecture, Lecture with infinite-scroll
+
+//Use Data Transfert Objects (DTO)
+//dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

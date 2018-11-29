@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-peer-heading">Create or edit a Peer</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!peer.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="peer.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profilePicture">Profile Picture</label>
+                    <div>
+                        <img [src]="'data:' + peer.profilePictureContentType + ';base64,' + peer.profilePicture" style="max-height: 100px;" *ngIf="peer.profilePicture" alt="peer image"/>
+                        <div *ngIf="peer.profilePicture" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{peer.profilePictureContentType}}, {{byteSize(peer.profilePicture)}}</span>
+                            <button type="button" (click)="clearInputImage('profilePicture', 'profilePictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_profilePicture" (change)="setFileData($event, peer, 'profilePicture', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="profilePicture" id="field_profilePicture"
+                        [(ngModel)]="peer.profilePicture" />
+                    <input type="hidden" class="form-control" name="profilePictureContentType" id="field_profilePictureContentType"
+                        [(ngModel)]="peer.profilePictureContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_firstName">First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="field_firstName"
+                        [(ngModel)]="peer.firstName" required/>
+                    <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.firstName?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastName">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="field_lastName"
+                        [(ngModel)]="peer.lastName" required/>
+                    <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.lastName?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_averageScore">Average Score</label>
+                    <input type="number" class="form-control" name="averageScore" id="field_averageScore"
+                        [(ngModel)]="peer.averageScore" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_interestAreas">Interest Areas</label>
+                    <input type="text" class="form-control" name="interestAreas" id="field_interestAreas"
+                        [(ngModel)]="peer.interestAreas" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="peer.email" required/>
+                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.email?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                        [(ngModel)]="peer.password" required/>
+                    <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.password?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_score">Score</label>
+                    <select class="form-control" id="field_score" name="score" [(ngModel)]="peer.score">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="scoreOption.id === peer.score?.id ? peer.score : scoreOption" *ngFor="let scoreOption of scores; trackBy: trackScoreById">{{scoreOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="peer.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === peer.user?.id ? peer.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

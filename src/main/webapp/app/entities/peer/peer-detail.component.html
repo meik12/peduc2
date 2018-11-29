@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="peer">
+            <h2><span>Peer</span> {{peer.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Profile Picture</span></dt>
+                <dd>
+                    <div *ngIf="peer.profilePicture">
+                        <a (click)="openFile(peer.profilePictureContentType, peer.profilePicture)">
+                            <img [src]="'data:' + peer.profilePictureContentType + ';base64,' + peer.profilePicture" style="max-width: 100%;" alt="peer image"/>
+                        </a>
+                        {{peer.profilePictureContentType}}, {{byteSize(peer.profilePicture)}}
+                    </div>
+                </dd>
+                <dt><span>First Name</span></dt>
+                <dd>
+                    <span>{{peer.firstName}}</span>
+                </dd>
+                <dt><span>Last Name</span></dt>
+                <dd>
+                    <span>{{peer.lastName}}</span>
+                </dd>
+                <dt><span>Average Score</span></dt>
+                <dd>
+                    <span>{{peer.averageScore}}</span>
+                </dd>
+                <dt><span>Interest Areas</span></dt>
+                <dd>
+                    <span>{{peer.interestAreas}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{peer.email}}</span>
+                </dd>
+                <dt><span>Password</span></dt>
+                <dd>
+                    <span>{{peer.password}}</span>
+                </dd>
+                <dt><span>Score</span></dt>
+                <dd>
+                    <div *ngIf="peer.score">
+                        <a [routerLink]="['/score', peer.score?.id, 'view']">{{peer.score?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{peer.user?.id}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/peer', peer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

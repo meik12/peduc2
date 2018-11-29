@@ -1,0 +1,106 @@
+<div>
+    <h2 id="page-heading">
+        <span>Suggested Lectures</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-suggested-lecture" [routerLink]="['/suggested-lecture/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Suggested Lecture
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="suggestedLectures">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="profilePicture"><span>Profile Picture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="firstName"><span>First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastName"><span>Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="averageScore"><span>Average Score</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="category"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="duration"><span>Duration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="language"><span>Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="videoCallLink"><span>Video Call Link</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="presentationDate"><span>Presentation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="timeZone"><span>Time Zone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="publicationDate"><span>Publication Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="peer.id"><span>Peer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="user.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let suggestedLecture of suggestedLectures ;trackBy: trackId">
+                <td><a [routerLink]="['/suggested-lecture', suggestedLecture.id, 'view' ]">{{suggestedLecture.id}}</a></td>
+                <td>
+                    <a *ngIf="suggestedLecture.profilePicture" (click)="openFile(suggestedLecture.profilePictureContentType, suggestedLecture.profilePicture)">
+                        <img [src]="'data:' + suggestedLecture.profilePictureContentType + ';base64,' + suggestedLecture.profilePicture" style="max-height: 30px;" alt="suggestedLecture image"/>
+                    </a>
+                    <span *ngIf="suggestedLecture.profilePicture">{{suggestedLecture.profilePictureContentType}}, {{byteSize(suggestedLecture.profilePicture)}}</span>
+                </td>
+                <td>{{suggestedLecture.firstName}}</td>
+                <td>{{suggestedLecture.lastName}}</td>
+                <td>{{suggestedLecture.averageScore}}</td>
+                <td>{{suggestedLecture.category}}</td>
+                <td>{{suggestedLecture.title}}</td>
+                <td>{{suggestedLecture.duration}}</td>
+                <td>{{suggestedLecture.language}}</td>
+                <td>{{suggestedLecture.videoCallLink}}</td>
+                <td>{{suggestedLecture.presentationDate | date:'medium'}}</td>
+                <td>{{suggestedLecture.timeZone}}</td>
+                <td>{{suggestedLecture.publicationDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="suggestedLecture.peer">
+                        <a [routerLink]="['../peer', suggestedLecture.peer?.id, 'view' ]" >{{suggestedLecture.peer?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{suggestedLecture.user?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/suggested-lecture', suggestedLecture.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/suggested-lecture', suggestedLecture.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'suggested-lecture/'+ suggestedLecture.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

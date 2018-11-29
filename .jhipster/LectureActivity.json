@@ -1,0 +1,53 @@
+{
+    "name": "LectureActivity",
+    "fields": [
+        {
+            "fieldName": "presentingUserId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "atendingUserId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "lectureStatus",
+            "fieldType": "LectureStatus",
+            "fieldValues": "ACTIVE,SCORE,REJECTED"
+        },
+        {
+            "fieldName": "presentationDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "postedDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "lecture",
+            "otherEntityName": "lecture",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "lectureActivity"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181129040013",
+    "entityTableName": "lecture_activity",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

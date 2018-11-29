@@ -1,0 +1,164 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-suggested-lecture-heading">Create or edit a Suggested Lecture</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!suggestedLecture.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="suggestedLecture.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profilePicture">Profile Picture</label>
+                    <div>
+                        <img [src]="'data:' + suggestedLecture.profilePictureContentType + ';base64,' + suggestedLecture.profilePicture" style="max-height: 100px;" *ngIf="suggestedLecture.profilePicture" alt="suggestedLecture image"/>
+                        <div *ngIf="suggestedLecture.profilePicture" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{suggestedLecture.profilePictureContentType}}, {{byteSize(suggestedLecture.profilePicture)}}</span>
+                            <button type="button" (click)="clearInputImage('profilePicture', 'profilePictureContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_profilePicture" (change)="setFileData($event, suggestedLecture, 'profilePicture', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="profilePicture" id="field_profilePicture"
+                        [(ngModel)]="suggestedLecture.profilePicture" />
+                    <input type="hidden" class="form-control" name="profilePictureContentType" id="field_profilePictureContentType"
+                        [(ngModel)]="suggestedLecture.profilePictureContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_firstName">First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="field_firstName"
+                        [(ngModel)]="suggestedLecture.firstName" required/>
+                    <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.firstName?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastName">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="field_lastName"
+                        [(ngModel)]="suggestedLecture.lastName" required/>
+                    <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.lastName?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_averageScore">Average Score</label>
+                    <input type="number" class="form-control" name="averageScore" id="field_averageScore"
+                        [(ngModel)]="suggestedLecture.averageScore" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <input type="text" class="form-control" name="category" id="field_category"
+                        [(ngModel)]="suggestedLecture.category" required/>
+                    <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.category?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="suggestedLecture.title" required/>
+                    <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.title?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_duration">Duration</label>
+                    <input type="number" class="form-control" name="duration" id="field_duration"
+                        [(ngModel)]="suggestedLecture.duration" required/>
+                    <div [hidden]="!(editForm.controls.duration?.dirty && editForm.controls.duration?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.duration?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.duration?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_language">Language</label>
+                    <input type="text" class="form-control" name="language" id="field_language"
+                        [(ngModel)]="suggestedLecture.language" required/>
+                    <div [hidden]="!(editForm.controls.language?.dirty && editForm.controls.language?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.language?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_videoCallLink">Video Call Link</label>
+                    <input type="text" class="form-control" name="videoCallLink" id="field_videoCallLink"
+                        [(ngModel)]="suggestedLecture.videoCallLink" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_presentationDate">Presentation Date</label>
+                    <div class="d-flex">
+                        <input id="field_presentationDate" type="datetime-local" class="form-control" name="presentationDate" [(ngModel)]="presentationDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.presentationDate?.dirty && editForm.controls.presentationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.presentationDate?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.presentationDate?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_timeZone">Time Zone</label>
+                    <input type="text" class="form-control" name="timeZone" id="field_timeZone"
+                        [(ngModel)]="suggestedLecture.timeZone" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_publicationDate">Publication Date</label>
+                    <div class="d-flex">
+                        <input id="field_publicationDate" type="datetime-local" class="form-control" name="publicationDate" [(ngModel)]="publicationDate"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_peer">Peer</label>
+                    <select class="form-control" id="field_peer" name="peer" [(ngModel)]="suggestedLecture.peer" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="peerOption.id === suggestedLecture.peer?.id ? suggestedLecture.peer : peerOption" *ngFor="let peerOption of peers; trackBy: trackPeerById">{{peerOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="suggestedLecture.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === suggestedLecture.user?.id ? suggestedLecture.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

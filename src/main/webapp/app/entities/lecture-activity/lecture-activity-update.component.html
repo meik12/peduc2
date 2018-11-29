@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-lecture-activity-heading">Create or edit a Lecture Activity</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!lectureActivity.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="lectureActivity.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_presentingUserId">Presenting User Id</label>
+                    <input type="number" class="form-control" name="presentingUserId" id="field_presentingUserId"
+                        [(ngModel)]="lectureActivity.presentingUserId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_atendingUserId">Atending User Id</label>
+                    <input type="number" class="form-control" name="atendingUserId" id="field_atendingUserId"
+                        [(ngModel)]="lectureActivity.atendingUserId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lectureStatus">Lecture Status</label>
+                    <select class="form-control" name="lectureStatus" [(ngModel)]="lectureActivity.lectureStatus" id="field_lectureStatus" >
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="SCORE">SCORE</option>
+                        <option value="REJECTED">REJECTED</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_presentationDate">Presentation Date</label>
+                    <div class="d-flex">
+                        <input id="field_presentationDate" type="datetime-local" class="form-control" name="presentationDate" [(ngModel)]="presentationDate"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_postedDate">Posted Date</label>
+                    <div class="d-flex">
+                        <input id="field_postedDate" type="datetime-local" class="form-control" name="postedDate" [(ngModel)]="postedDate"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lecture">Lecture</label>
+                    <select class="form-control" id="field_lecture" name="lecture" [(ngModel)]="lectureActivity.lecture">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="lectureOption.id === lectureActivity.lecture?.id ? lectureActivity.lecture : lectureOption" *ngFor="let lectureOption of lectures; trackBy: trackLectureById">{{lectureOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_user">User</label>
+                    <select class="form-control" id="field_user" multiple name="user" [(ngModel)]="lectureActivity.users">
+                        <option [ngValue]="getSelected(lectureActivity.users, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

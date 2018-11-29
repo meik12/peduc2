@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="suggestedLecture">
+            <h2><span>Suggested Lecture</span> {{suggestedLecture.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Profile Picture</span></dt>
+                <dd>
+                    <div *ngIf="suggestedLecture.profilePicture">
+                        <a (click)="openFile(suggestedLecture.profilePictureContentType, suggestedLecture.profilePicture)">
+                            <img [src]="'data:' + suggestedLecture.profilePictureContentType + ';base64,' + suggestedLecture.profilePicture" style="max-width: 100%;" alt="suggestedLecture image"/>
+                        </a>
+                        {{suggestedLecture.profilePictureContentType}}, {{byteSize(suggestedLecture.profilePicture)}}
+                    </div>
+                </dd>
+                <dt><span>First Name</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.firstName}}</span>
+                </dd>
+                <dt><span>Last Name</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.lastName}}</span>
+                </dd>
+                <dt><span>Average Score</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.averageScore}}</span>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.category}}</span>
+                </dd>
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.title}}</span>
+                </dd>
+                <dt><span>Duration</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.duration}}</span>
+                </dd>
+                <dt><span>Language</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.language}}</span>
+                </dd>
+                <dt><span>Video Call Link</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.videoCallLink}}</span>
+                </dd>
+                <dt><span>Presentation Date</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.presentationDate}}</span>
+                </dd>
+                <dt><span>Time Zone</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.timeZone}}</span>
+                </dd>
+                <dt><span>Publication Date</span></dt>
+                <dd>
+                    <span>{{suggestedLecture.publicationDate}}</span>
+                </dd>
+                <dt><span>Peer</span></dt>
+                <dd>
+                    <div *ngIf="suggestedLecture.peer">
+                        <a [routerLink]="['/peer', suggestedLecture.peer?.id, 'view']">{{suggestedLecture.peer?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{suggestedLecture.user?.id}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/suggested-lecture', suggestedLecture.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

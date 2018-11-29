@@ -1,0 +1,96 @@
+<div>
+    <h2 id="page-heading">
+        <span>Peers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-peer" [routerLink]="['/peer/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Peer
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="peers">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Profile Picture</span></th>
+            <th><span>First Name</span></th>
+            <th><span>Last Name</span></th>
+            <th><span>Average Score</span></th>
+            <th><span>Interest Areas</span></th>
+            <th><span>Email</span></th>
+            <th><span>Password</span></th>
+            <th><span>Score</span></th>
+            <th><span>User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let peer of peers ;trackBy: trackId">
+                <td><a [routerLink]="['/peer', peer.id, 'view' ]">{{peer.id}}</a></td>
+                <td>
+                    <a *ngIf="peer.profilePicture" (click)="openFile(peer.profilePictureContentType, peer.profilePicture)">
+                        <img [src]="'data:' + peer.profilePictureContentType + ';base64,' + peer.profilePicture" style="max-height: 30px;" alt="peer image"/>
+                    </a>
+                    <span *ngIf="peer.profilePicture">{{peer.profilePictureContentType}}, {{byteSize(peer.profilePicture)}}</span>
+                </td>
+                <td>{{peer.firstName}}</td>
+                <td>{{peer.lastName}}</td>
+                <td>{{peer.averageScore}}</td>
+                <td>{{peer.interestAreas}}</td>
+                <td>{{peer.email}}</td>
+                <td>{{peer.password}}</td>
+                <td>
+                    <div *ngIf="peer.score">
+                        <a [routerLink]="['../score', peer.score?.id, 'view' ]" >{{peer.score?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    {{peer.user?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/peer', peer.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/peer', peer.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'peer/'+ peer.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

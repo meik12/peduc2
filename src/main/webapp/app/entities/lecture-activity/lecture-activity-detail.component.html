@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lectureActivity">
+            <h2><span>Lecture Activity</span> {{lectureActivity.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Presenting User Id</span></dt>
+                <dd>
+                    <span>{{lectureActivity.presentingUserId}}</span>
+                </dd>
+                <dt><span>Atending User Id</span></dt>
+                <dd>
+                    <span>{{lectureActivity.atendingUserId}}</span>
+                </dd>
+                <dt><span>Lecture Status</span></dt>
+                <dd>
+                    <span>{{lectureActivity.lectureStatus}}</span>
+                </dd>
+                <dt><span>Presentation Date</span></dt>
+                <dd>
+                    <span>{{lectureActivity.presentationDate}}</span>
+                </dd>
+                <dt><span>Posted Date</span></dt>
+                <dd>
+                    <span>{{lectureActivity.postedDate}}</span>
+                </dd>
+                <dt><span>Lecture</span></dt>
+                <dd>
+                    <div *ngIf="lectureActivity.lecture">
+                        <a [routerLink]="['/lecture', lectureActivity.lecture?.id, 'view']">{{lectureActivity.lecture?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    <span *ngFor="let user of lectureActivity.users; let last = last">
+                        {{user.id}}{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/lecture-activity', lectureActivity.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
