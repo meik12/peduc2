@@ -1,6 +1,7 @@
 package com.gatech.peduc.service.impl;
 
 import com.gatech.peduc.service.LectureService;
+import com.gatech.peduc.service.UserService;
 import com.gatech.peduc.domain.Lecture;
 import com.gatech.peduc.repository.LectureRepository;
 import com.gatech.peduc.repository.search.LectureSearchRepository;
@@ -28,10 +29,12 @@ public class LectureServiceImpl implements LectureService {
     private LectureRepository lectureRepository;
 
     private LectureSearchRepository lectureSearchRepository;
+    private UserService userService;
 
-    public LectureServiceImpl(LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
+    public LectureServiceImpl(UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureSearchRepository = lectureSearchRepository;
+        this.userService = userService;
     }
 
     /**
@@ -58,7 +61,8 @@ public class LectureServiceImpl implements LectureService {
     @Transactional(readOnly = true)
     public Page<Lecture> findAll(Pageable pageable) {
         log.debug("Request to get all Lectures");
-        return lectureRepository.findAll(pageable);
+        Long id = userService.getUserWithAuthorities().get().getId();
+        return lectureRepository.findByUserIsCurrentUser(id,pageable);
     }
 
 

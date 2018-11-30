@@ -1,7 +1,11 @@
 package com.gatech.peduc.repository;
 
 import com.gatech.peduc.domain.Lecture;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +17,7 @@ import java.util.List;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
-    @Query("select lecture from Lecture lecture where lecture.user.login = ?#{principal.username}")
-    List<Lecture> findByUserIsCurrentUser();
+    @Query("select lecture from Lecture lecture where lecture.user.id != :id")
+    Page<Lecture> findByUserIsCurrentUser(@Param("id") Long  id, Pageable pageable);
 
 }

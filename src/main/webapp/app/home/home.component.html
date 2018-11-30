@@ -5,8 +5,8 @@
     <div class="col-md-9">
 
         <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <jhi-suggested-lecture></jhi-suggested-lecture>
+            <div  *ngSwitchCase="true">
+                <jhi-lecture></jhi-lecture>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">

@@ -1,3 +1,4 @@
+import { LectureComponent } from 'app/entities/lecture/lecture.component';
 import { SuggestedLectureComponent } from './../entities/suggested-lecture/suggested-lecture.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -8,7 +9,7 @@ import { SidebarComponent } from 'app/sidebar/sidebar.component';
 
 @NgModule({
     imports: [Peduc2SharedModule, RouterModule.forChild([HOME_ROUTE])],
-    declarations: [HomeComponent, SidebarComponent, SuggestedLectureComponent],
+    declarations: [HomeComponent, SidebarComponent, LectureComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Peduc2HomeModule {}

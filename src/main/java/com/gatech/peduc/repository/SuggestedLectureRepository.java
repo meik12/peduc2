@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 
 /**
  * Spring Data  repository for the SuggestedLecture entity.

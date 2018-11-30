@@ -18,6 +18,7 @@ const ENTITY_STATES = [...suggestedLectureRoute, ...suggestedLecturePopupRoute];
 @NgModule({
     imports: [Peduc2SharedModule, Peduc2AdminModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
+        SuggestedLectureComponent,
         SuggestedLectureDetailComponent,
         SuggestedLectureUpdateComponent,
         SuggestedLectureDeleteDialogComponent,
