@@ -5,6 +5,7 @@ import { Peduc2SuggestedLectureModule } from './suggested-lecture/suggested-lect
 import { Peduc2LectureActivityModule } from './lecture-activity/lecture-activity.module';
 import { Peduc2LectureModule } from './lecture/lecture.module';
 import { Peduc2ScoreModule } from './score/score.module';
+import { Peduc2ProfileModule } from './profile/profile.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -15,6 +16,7 @@ import { Peduc2ScoreModule } from './score/score.module';
         Peduc2LectureActivityModule,
         Peduc2LectureModule,
         Peduc2ScoreModule,
+        Peduc2ProfileModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

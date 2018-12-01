@@ -135,7 +135,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="lecture.user" >
-                        <option [ngValue]="null"></option>
+                        <!-- <option [ngValue]="null"></option> -->
                         <option [ngValue]="userOption.id === lecture.user?.id ? lecture.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
                     </select>
                 </div>

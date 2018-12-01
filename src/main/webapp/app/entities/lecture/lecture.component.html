@@ -29,7 +29,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="category"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="topic"><span>Topic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -41,14 +41,14 @@
             <th jhiSortBy="presentationDate"><span>Presentation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="timeZone"><span>Time Zone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="publicationDate"><span>Publication Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="peer.id"><span>Peer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="user.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="peer.id"><span>Peer</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <!-- <th jhiSortBy="user.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let lecture of lectures ;trackBy: trackId">
-                <td><a [routerLink]="['/lecture', lecture.id, 'view' ]">{{lecture.id}}</a></td>
+                <!-- <td><a [routerLink]="['/lecture', lecture.id, 'view' ]">{{lecture.id}}</a></td> -->
                 <td>{{lecture.category}}</td>
                 <td>{{lecture.topic}}</td>
                 <td>{{lecture.title}}</td>
@@ -60,23 +60,23 @@
                 <td>{{lecture.presentationDate | date:'medium'}}</td>
                 <td>{{lecture.timeZone}}</td>
                 <td>{{lecture.publicationDate | date:'medium'}}</td>
-                <td>
+                <!-- <td>
                     <div *ngIf="lecture.peer">
                         <a [routerLink]="['../peer', lecture.peer?.id, 'view' ]" >{{lecture.peer?.id}}</a>
                     </div>
                 </td>
                 <td>
                     {{lecture.user?.id}}
-                </td>
+                </td> -->
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/lecture', lecture.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">change to Attende</span>
                         </button>
-                        <button type="submit"
+                        <!-- <button type="submit"
                                 [routerLink]="['/lecture', lecture.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
@@ -89,7 +89,7 @@
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>
-                        </button>
+                        </button> -->
                     </div>
                 </td>
             </tr>
