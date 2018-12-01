@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
-    @Query("select lecture from Lecture lecture where lecture.user.id != :id")
+    @Query("select lecture from Lecture lecture where lecture.user.id != :id AND lecture.user.id != null")
     Page<Lecture> findByUserIsCurrentUser(@Param("id") Long  id, Pageable pageable);
 
 }

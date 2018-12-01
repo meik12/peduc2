@@ -3,13 +3,18 @@ package com.gatech.peduc.service.impl;
 import com.gatech.peduc.service.LectureService;
 import com.gatech.peduc.service.UserService;
 import com.gatech.peduc.domain.Lecture;
+import com.gatech.peduc.domain.User;
 import com.gatech.peduc.repository.LectureRepository;
+import com.gatech.peduc.repository.UserRepository;
 import com.gatech.peduc.repository.search.LectureSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,16 +32,30 @@ public class LectureServiceImpl implements LectureService {
     private final Logger log = LoggerFactory.getLogger(LectureServiceImpl.class);
 
     private LectureRepository lectureRepository;
-
+    private UserRepository userRepository;
     private LectureSearchRepository lectureSearchRepository;
     private UserService userService;
 
-    public LectureServiceImpl(UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
+    public LectureServiceImpl(UserRepository userRepository, UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureSearchRepository = lectureSearchRepository;
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
+
+    public String getCurrentUserLogin() {
+        org.springframework.security.core.context.SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        String login = null;
+        if (authentication != null)
+            if (authentication.getPrincipal() instanceof UserDetails)
+             login = ((UserDetails) authentication.getPrincipal()).getUsername();
+            else if (authentication.getPrincipal() instanceof String)
+             login = (String) authentication.getPrincipal();
+
+        return login; 
+        }
     /**
      * Save a lecture.
      *
@@ -46,6 +65,9 @@ public class LectureServiceImpl implements LectureService {
     @Override
     public Lecture save(Lecture lecture) {
         log.debug("Request to save Lecture : {}", lecture);
+        User user=new User();
+        user=userRepository.findOneByLogin(getCurrentUserLogin()).get();
+        lecture.setUser(user);
         Lecture result = lectureRepository.save(lecture);
         lectureSearchRepository.save(result);
         return result;
