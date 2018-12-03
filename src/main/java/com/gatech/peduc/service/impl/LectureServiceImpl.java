@@ -3,7 +3,10 @@ package com.gatech.peduc.service.impl;
 import com.gatech.peduc.service.LectureService;
 import com.gatech.peduc.service.UserService;
 import com.gatech.peduc.domain.Lecture;
+import com.gatech.peduc.domain.LectureActivity;
 import com.gatech.peduc.domain.User;
+import com.gatech.peduc.domain.enumeration.LectureStatus;
+import com.gatech.peduc.repository.LectureActivityRepository;
 import com.gatech.peduc.repository.LectureRepository;
 import com.gatech.peduc.repository.UserRepository;
 import com.gatech.peduc.repository.search.LectureSearchRepository;
@@ -18,6 +21,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -34,13 +39,15 @@ public class LectureServiceImpl implements LectureService {
     private LectureRepository lectureRepository;
     private UserRepository userRepository;
     private LectureSearchRepository lectureSearchRepository;
+    LectureActivityRepository lectureActivityRepository;
     private UserService userService;
 
-    public LectureServiceImpl(UserRepository userRepository, UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
+    public LectureServiceImpl(LectureActivityRepository lectureActivityRepository, UserRepository userRepository, UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureSearchRepository = lectureSearchRepository;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.lectureActivityRepository = lectureActivityRepository;
     }
 
 
@@ -69,6 +76,13 @@ public class LectureServiceImpl implements LectureService {
         user=userRepository.findOneByLogin(getCurrentUserLogin()).get();
         lecture.setUser(user);
         Lecture result = lectureRepository.save(lecture);
+        LectureActivity lectureActivity = new LectureActivity();
+        lectureActivity.setPresentingUserId(user.getId());
+        lectureActivity.setLectureStatus(LectureStatus.ACTIVE);
+        lectureActivity.setPostedDate(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0")));
+        lectureActivity.setPresentationDate(lecture.getPresentationDate());
+        lectureActivity.setLecture(lecture);
+        lectureActivityRepository.save(lectureActivity);
         lectureSearchRepository.save(result);
         return result;
     }
@@ -81,7 +95,15 @@ public class LectureServiceImpl implements LectureService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Lecture> findAll(Pageable pageable) {
+    public Page<Lecture> findAllExceptCurrentUser(Pageable pageable) {
+        log.debug("Request to get all Lectures");
+        Long id = userService.getUserWithAuthorities().get().getId();
+        return lectureRepository.findByUserIsNotCurrentUser(id,pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Lecture> findAllForCurrent(Pageable pageable) {
         log.debug("Request to get all Lectures");
         Long id = userService.getUserWithAuthorities().get().getId();
         return lectureRepository.findByUserIsCurrentUser(id,pageable);

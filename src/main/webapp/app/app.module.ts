@@ -18,6 +18,7 @@ import { Peduc2HomeModule } from './home/home.module';
 import { Peduc2AccountModule } from './account/account.module';
 import { Peduc2EntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { Peduc2AppProfileModule } from './profile/profile.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -31,6 +32,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
         Peduc2CoreModule,
         Peduc2HomeModule,
         Peduc2AccountModule,
+        Peduc2AppProfileModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         Peduc2EntityModule
     ],

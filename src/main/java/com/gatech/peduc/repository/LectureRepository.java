@@ -20,4 +20,8 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
     @Query("select lecture from Lecture lecture where lecture.user.id != :id AND lecture.user.id != null")
     Page<Lecture> findByUserIsCurrentUser(@Param("id") Long  id, Pageable pageable);
 
+
+    @Query("select lecture from Lecture lecture where lecture.user.id != :id AND lecture.user.id != null AND lecture.status = 'ACTIVE'")
+    Page<Lecture> findByUserIsNotCurrentUser(@Param("id") Long  id, Pageable pageable);
+
 }

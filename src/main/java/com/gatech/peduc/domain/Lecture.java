@@ -49,7 +49,6 @@ public class Lecture implements Serializable {
     @Column(name = "duration", nullable = false)
     private Integer duration;
 
-    @NotNull
     @Column(name = "status", nullable = false)
     private String status;
 

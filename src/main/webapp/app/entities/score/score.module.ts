@@ -16,7 +16,7 @@ const ENTITY_STATES = [...scoreRoute, ...scorePopupRoute];
 
 @NgModule({
     imports: [Peduc2SharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [ScoreComponent, ScoreDetailComponent, ScoreUpdateComponent, ScoreDeleteDialogComponent, ScoreDeletePopupComponent],
+    declarations: [ScoreDetailComponent, ScoreUpdateComponent, ScoreDeleteDialogComponent, ScoreDeletePopupComponent],
     entryComponents: [ScoreComponent, ScoreUpdateComponent, ScoreDeleteDialogComponent, ScoreDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

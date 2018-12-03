@@ -26,7 +26,9 @@ public interface LectureService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<Lecture> findAll(Pageable pageable);
+    Page<Lecture> findAllExceptCurrentUser(Pageable pageable);
+
+    Page<Lecture> findAllForCurrent(Pageable pageable);
 
 
     /**

@@ -1,5 +1,5 @@
 <div>
-    <h2 id="page-heading">
+    <!-- <h2 id="page-heading">
         <span>Scores</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-score" [routerLink]="['/score/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
@@ -7,8 +7,8 @@
             Create new Score
             </span>
         </button>
-    </h2>
-    <jhi-alert></jhi-alert>
+    </h2> -->
+    <!-- <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
@@ -23,13 +23,13 @@
                 </div>
             </form>
         </div>
-    </div>
-    <br/>
+    </div> -->
+    <!-- <br/> -->
     <div class="table-responsive" *ngIf="scores">
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>ID</span></th>
+            <!-- <th><span>ID</span></th> -->
             <th><span>Excellent</span></th>
             <th><span>Very Good</span></th>
             <th><span>Fair</span></th>
@@ -39,12 +39,12 @@
             </thead>
             <tbody>
             <tr *ngFor="let score of scores ;trackBy: trackId">
-                <td><a [routerLink]="['/score', score.id, 'view' ]">{{score.id}}</a></td>
+                <!-- <td><a [routerLink]="['/score', score.id, 'view' ]">{{score.id}}</a></td> -->
                 <td>{{score.excellent}}</td>
                 <td>{{score.veryGood}}</td>
                 <td>{{score.fair}}</td>
                 <td>{{score.bad}}</td>
-                <td class="text-right">
+                <!-- <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/score', score.id, 'view' ]"
@@ -67,7 +67,7 @@
                             <span class="d-none d-md-inline">Delete</span>
                         </button>
                     </div>
-                </td>
+                </td> -->
             </tr>
             </tbody>
         </table>

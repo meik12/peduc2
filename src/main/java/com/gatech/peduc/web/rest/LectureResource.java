@@ -57,6 +57,7 @@ public class LectureResource {
         if (lecture.getId() != null) {
             throw new BadRequestAlertException("A new lecture cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        lecture.setStatus("ACTIVE");
         Lecture result = lectureService.save(lecture);
         return ResponseEntity.created(new URI("/api/lectures/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -95,7 +96,7 @@ public class LectureResource {
     @Timed
     public ResponseEntity<List<Lecture>> getAllLectures(Pageable pageable) {
         log.debug("REST request to get a page of Lectures");
-        Page<Lecture> page = lectureService.findAll(pageable);
+        Page<Lecture> page = lectureService.findAllExceptCurrentUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/lectures");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
