@@ -82,7 +82,9 @@ public class LectureServiceImpl implements LectureService {
         lectureActivity.setPostedDate(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0")));
         lectureActivity.setPresentationDate(lecture.getPresentationDate());
         lectureActivity.setLecture(lecture);
+        if (lecture.getId() == null) {
         lectureActivityRepository.save(lectureActivity);
+        }
         lectureSearchRepository.save(result);
         return result;
     }
