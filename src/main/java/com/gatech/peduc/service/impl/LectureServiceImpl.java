@@ -111,6 +111,14 @@ public class LectureServiceImpl implements LectureService {
         return lectureRepository.findByUserIsCurrentUser(id,pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Lecture> findAllPastPresentation(Pageable pageable) {
+        log.debug("Request to get all Lectures");
+        Long id = userService.getUserWithAuthorities().get().getId();
+        ZonedDateTime z = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0"));
+        return lectureRepository.findAllPastPresentation(id,pageable, z);
+    }
 
     /**
      * Get one lecture by id.

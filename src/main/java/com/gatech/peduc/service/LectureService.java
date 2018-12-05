@@ -29,6 +29,7 @@ public interface LectureService {
     Page<Lecture> findAllExceptCurrentUser(Pageable pageable);
 
     Page<Lecture> findAllForCurrent(Pageable pageable);
+    Page<Lecture> findAllPastPresentation(Pageable pageable);
 
 
     /**
