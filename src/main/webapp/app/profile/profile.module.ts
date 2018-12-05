@@ -1,4 +1,5 @@
 import { LectureComponent } from './../entities/lecture/lecture.component.2';
+import { PastLectureComponent } from './../entities/lecture/past.lecture.component';
 import { ScoreComponent } from './../entities/score/score.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { PROFILE_ROUTE, ProfileComponent } from './';
 
 @NgModule({
     imports: [Peduc2SharedModule, RouterModule.forRoot([PROFILE_ROUTE], { useHash: true })],
-    declarations: [ProfileComponent, ScoreComponent, LectureComponent],
+    declarations: [ProfileComponent, ScoreComponent, LectureComponent, PastLectureComponent],
     entryComponents: [],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

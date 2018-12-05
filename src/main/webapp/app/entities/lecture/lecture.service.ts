@@ -17,6 +17,7 @@ export class LectureService {
     public resourceUrl = SERVER_API_URL + 'api/lectures';
     public resourceUrlForCurrent = SERVER_API_URL + 'api/lecturesForCurrent';
     public resourceSearchUrl = SERVER_API_URL + 'api/_search/lectures';
+    public resourceUrlForPast = SERVER_API_URL + 'api/lecturesPastPresentation';
 
     constructor(private http: HttpClient) {}
 
@@ -53,6 +54,14 @@ export class LectureService {
             .get<ILecture[]>(this.resourceUrlForCurrent, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
+
+    queryForPastPresentation(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<ILecture[]>(this.resourceUrlForPast, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
