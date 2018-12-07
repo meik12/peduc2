@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity ScoreUser.
+    -->
+    <changeSet id="20181205052342-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="score_user"
+                                 constraintName="fk_score_user_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="lecture_id"
+                                 baseTableName="score_user"
+                                 constraintName="fk_score_user_lecture_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lecture"/>
+
+        <addForeignKeyConstraint baseColumnNames="lecture_activity_id"
+                                 baseTableName="score_user"
+                                 constraintName="fk_score_user_lecture_activity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lecture_activity"/>
+
+    </changeSet>
+</databaseChangeLog>

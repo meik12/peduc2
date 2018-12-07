@@ -10,10 +10,12 @@
     <include file="config/liquibase/changelog/20181129040013_added_entity_LectureActivity.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181129040014_added_entity_Lecture.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181129040015_added_entity_Score.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181205052342_added_entity_ScoreUser.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20181129040011_added_entity_constraints_Peer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181129040012_added_entity_constraints_SuggestedLecture.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181129040013_added_entity_constraints_LectureActivity.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181129040014_added_entity_constraints_Lecture.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181205052342_added_entity_constraints_ScoreUser.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

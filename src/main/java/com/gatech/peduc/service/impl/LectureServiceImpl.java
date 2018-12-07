@@ -4,10 +4,12 @@ import com.gatech.peduc.service.LectureService;
 import com.gatech.peduc.service.UserService;
 import com.gatech.peduc.domain.Lecture;
 import com.gatech.peduc.domain.LectureActivity;
+import com.gatech.peduc.domain.ScoreUser;
 import com.gatech.peduc.domain.User;
 import com.gatech.peduc.domain.enumeration.LectureStatus;
 import com.gatech.peduc.repository.LectureActivityRepository;
 import com.gatech.peduc.repository.LectureRepository;
+import com.gatech.peduc.repository.ScoreUserRepository;
 import com.gatech.peduc.repository.UserRepository;
 import com.gatech.peduc.repository.search.LectureSearchRepository;
 import org.slf4j.Logger;
@@ -41,13 +43,15 @@ public class LectureServiceImpl implements LectureService {
     private LectureSearchRepository lectureSearchRepository;
     LectureActivityRepository lectureActivityRepository;
     private UserService userService;
+    private ScoreUserRepository scoreUserRepository;
 
-    public LectureServiceImpl(LectureActivityRepository lectureActivityRepository, UserRepository userRepository, UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
+    public LectureServiceImpl(ScoreUserRepository scoreUserRepository, LectureActivityRepository lectureActivityRepository, UserRepository userRepository, UserService userService, LectureRepository lectureRepository, LectureSearchRepository lectureSearchRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureSearchRepository = lectureSearchRepository;
         this.userService = userService;
         this.userRepository = userRepository;
         this.lectureActivityRepository = lectureActivityRepository;
+        this.scoreUserRepository = scoreUserRepository;
     }
 
 
@@ -77,15 +81,21 @@ public class LectureServiceImpl implements LectureService {
         lecture.setUser(user);
         Lecture result = lectureRepository.save(lecture);
         LectureActivity lectureActivity = new LectureActivity();
+        ScoreUser scoreUser = new ScoreUser();
         lectureActivity.setPresentingUserId(user.getId());
         lectureActivity.setLectureStatus(LectureStatus.ACTIVE);
         lectureActivity.setPostedDate(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0")));
         lectureActivity.setPresentationDate(lecture.getPresentationDate());
         lectureActivity.setLecture(lecture);
+        
         if (lecture.getId() == null) {
-        lectureActivityRepository.save(lectureActivity);
+        LectureActivity l= lectureActivityRepository.save(lectureActivity);
+        scoreUser.setLectureActivity(l);
         }
         lectureSearchRepository.save(result);
+        scoreUser.setUser(user);
+        scoreUser.setLecture(lecture);
+        scoreUserRepository.save(scoreUser);
         return result;
     }
 

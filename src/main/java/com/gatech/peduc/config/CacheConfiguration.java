@@ -44,6 +44,7 @@ public class CacheConfiguration {
             cm.createCache(com.gatech.peduc.domain.LectureActivity.class.getName() + ".users", jcacheConfiguration);
             cm.createCache(com.gatech.peduc.domain.Lecture.class.getName(), jcacheConfiguration);
             cm.createCache(com.gatech.peduc.domain.Score.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gatech.peduc.domain.ScoreUser.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

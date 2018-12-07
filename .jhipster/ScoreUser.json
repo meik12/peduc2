@@ -1,0 +1,65 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "scoreUser"
+        },
+        {
+            "relationshipName": "lecture",
+            "otherEntityName": "lecture",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "lectureActivity",
+            "otherEntityName": "lectureActivity",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "excellent",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "1000000"
+        },
+        {
+            "fieldName": "veryGood",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "fair",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bad",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "average",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181205052342",
+    "dto": "no",
+    "searchEngine": "elasticsearch",
+    "service": "no",
+    "entityTableName": "score_user",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
