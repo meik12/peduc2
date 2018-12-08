@@ -9,6 +9,7 @@ import { LectureService } from './lecture.service';
 import { LectureComponent } from './lecture.component';
 import { LectureDetailComponent } from './lecture-detail.component';
 import { LectureUpdateComponent } from './lecture-update.component';
+import { LectureUpdateAttendComponent } from './lecture-updateAttend.component';
 import { LectureDeletePopupComponent } from './lecture-delete-dialog.component';
 import { ILecture } from 'app/shared/model/lecture.model';
 
@@ -62,6 +63,18 @@ export const lectureRoute: Routes = [
     {
         path: 'lecture/:id/edit',
         component: LectureUpdateComponent,
+        resolve: {
+            lecture: LectureResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'Lectures'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'lecture/:id/edit2',
+        component: LectureUpdateAttendComponent,
         resolve: {
             lecture: LectureResolve
         },

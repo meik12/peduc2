@@ -63,7 +63,8 @@ public class LectureResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
+   
+    
     /**
      * PUT  /lectures : Updates an existing lecture.
      *

@@ -12,12 +12,19 @@ import {
     lectureRoute,
     lecturePopupRoute
 } from './';
+import { LectureUpdateAttendComponent } from './lecture-updateAttend.component';
 
 const ENTITY_STATES = [...lectureRoute, ...lecturePopupRoute];
 
 @NgModule({
     imports: [Peduc2SharedModule, Peduc2AdminModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [LectureDetailComponent, LectureUpdateComponent, LectureDeleteDialogComponent, LectureDeletePopupComponent],
+    declarations: [
+        LectureDetailComponent,
+        LectureUpdateComponent,
+        LectureUpdateAttendComponent,
+        LectureDeleteDialogComponent,
+        LectureDeletePopupComponent
+    ],
     entryComponents: [LectureComponent, LectureUpdateComponent, LectureDeleteDialogComponent, LectureDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

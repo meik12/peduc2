@@ -47,10 +47,10 @@ export class ScoreUserUpdateComponent implements OnInit {
         if (event.target.checked) {
             this.selectedScore.pop();
             this.selectedScore.push(p.name);
-            this.scoreUser.excellent = this.selectedScore[0] == 'Excellent' ? 1 : 0;
-            this.scoreUser.veryGood = this.selectedScore[0] == 'Very Good' ? 1 : 0;
-            this.scoreUser.bad = this.selectedScore[0] == 'Bad' ? 1 : 0;
-            this.scoreUser.fair = this.selectedScore[0] == 'Fair' ? 1 : 0;
+            this.scoreUser.excellent = this.selectedScore[0] === 'Excellent' ? 1 : 0;
+            this.scoreUser.veryGood = this.selectedScore[0] === 'Very Good' ? 1 : 0;
+            this.scoreUser.bad = this.selectedScore[0] === 'Bad' ? 1 : 0;
+            this.scoreUser.fair = this.selectedScore[0] === 'Fair' ? 1 : 0;
 
             console.log(this.selectedScore);
         }
@@ -87,6 +87,7 @@ export class ScoreUserUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.scoreUser.id !== undefined) {
+            this.scoreUser.description = 'DONE';
             this.subscribeToSaveResponse(this.scoreUserService.update(this.scoreUser));
         } else {
             this.subscribeToSaveResponse(this.scoreUserService.create(this.scoreUser));

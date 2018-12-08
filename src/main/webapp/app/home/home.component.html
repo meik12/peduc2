@@ -1,6 +1,8 @@
 <div class="row">
-    <div class="col-md-3">
-        <jhi-sidebar></jhi-sidebar>
+    <div [ngSwitch]="isAuthenticated()"class="col-md-3">
+        <div  *ngSwitchCase="true">
+            <jhi-sidebar></jhi-sidebar>
+        </div>
     </div>
     <div class="col-md-9">
 

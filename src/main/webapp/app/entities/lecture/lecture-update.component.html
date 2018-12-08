@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-lecture-heading">Create or edit a Lecture</h2>
+            <h2 id="jhi-lecture-heading">Create a Lecture</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!lecture.id">
@@ -10,7 +10,7 @@
                         [(ngModel)]="lecture.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_category">Category</label>
+                    <label class="form-control-label" for="field_category">Category (such as: Computer Science, Biology, History, Mechanical Engineering)</label>
                     <input type="text" class="form-control" name="category" id="field_category"
                         [(ngModel)]="lecture.category" required/>
                     <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_topic">Topic</label>
+                    <label class="form-control-label" for="field_topic">Topic (such as: Development, Security, Design)</label>
                     <input type="text" class="form-control" name="topic" id="field_topic"
                         [(ngModel)]="lecture.topic" required/>
                     <div [hidden]="!(editForm.controls.topic?.dirty && editForm.controls.topic?.invalid)">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_duration">Duration</label>
+                    <label class="form-control-label" for="field_duration">Duration (in minutes)</label>
                     <input type="number" class="form-control" name="duration" id="field_duration"
                         [(ngModel)]="lecture.duration" required/>
                     <div [hidden]="!(editForm.controls.duration?.dirty && editForm.controls.duration?.invalid)">
@@ -117,13 +117,13 @@
                     <input type="text" class="form-control" name="timeZone" id="field_timeZone"
                         [(ngModel)]="lecture.timeZone" />
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-control-label" for="field_publicationDate">Publication Date</label>
                     <div class="d-flex">
                         <input id="field_publicationDate" type="datetime-local" class="form-control" name="publicationDate" [(ngModel)]="publicationDate"
                         />
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="form-group">
                     <label class="form-control-label" for="field_peer">Peer</label>

@@ -1,19 +1,19 @@
 <div>
     <h2 id="page-heading">
         <span>Lectures</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lecture" [routerLink]="['/lecture/new']">
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lecture" [routerLink]="['/lecture/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
             Create new Lecture
             </span>
-        </button>
+        </button> -->
     </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Search">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -71,10 +71,11 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/lecture', lecture.id, 'view' ]"
-                                class="btn btn-info btn-sm">
+                                
+                                class="btn btn-info btn-sm" [routerLink]="['/lecture', lecture.id, 'edit2' ]">
+                                
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">change to Attende</span>
+                            <span class="d-none d-md-inline">Attend</span>
                         </button>
                         <!-- <button type="submit"
                                 [routerLink]="['/lecture', lecture.id, 'edit']"

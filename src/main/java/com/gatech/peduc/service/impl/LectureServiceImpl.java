@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class LectureServiceImpl implements LectureService {
     }
 
 
-    public String getCurrentUserLogin() {
+    public static String getCurrentUserLogin() {
         org.springframework.security.core.context.SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         String login = null;
@@ -77,9 +78,15 @@ public class LectureServiceImpl implements LectureService {
     public Lecture save(Lecture lecture) {
         log.debug("Request to save Lecture : {}", lecture);
         User user=new User();
+        Long orignalId = lecture.getUser().getId();
         user=userRepository.findOneByLogin(getCurrentUserLogin()).get();
-        lecture.setUser(user);
+        Boolean isNull = lecture.getPublicationDate()==null;
+        lecture.setPublicationDate(Instant.now());
+        if (orignalId == null || orignalId == user.getId()) {   
+            lecture.setUser(user);
+        }
         Lecture result = lectureRepository.save(lecture);
+        
         LectureActivity lectureActivity = new LectureActivity();
         ScoreUser scoreUser = new ScoreUser();
         lectureActivity.setPresentingUserId(user.getId());
@@ -87,8 +94,8 @@ public class LectureServiceImpl implements LectureService {
         lectureActivity.setPostedDate(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0")));
         lectureActivity.setPresentationDate(lecture.getPresentationDate());
         lectureActivity.setLecture(lecture);
-        
-        if (lecture.getId() == null) {
+        if (isNull || orignalId != user.getId()) {   
+        lectureActivity.setAtendingUserId(user.getId()); 
         LectureActivity l= lectureActivityRepository.save(lectureActivity);
         scoreUser.setLectureActivity(l);
         }
@@ -167,4 +174,6 @@ public class LectureServiceImpl implements LectureService {
     public Page<Lecture> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Lectures for query {}", query);
         return lectureSearchRepository.search(queryStringQuery(query), pageable);    }
+
+
 }

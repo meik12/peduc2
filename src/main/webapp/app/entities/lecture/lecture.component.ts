@@ -1,3 +1,5 @@
+import { LectureActivity } from 'app/shared/model/lecture-activity.model';
+import { LectureActivityService } from 'app/entities/lecture-activity/lecture-activity.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +31,7 @@ export class LectureComponent implements OnInit, OnDestroy {
 
     constructor(
         private lectureService: LectureService,
+        private lectureActivityService: LectureActivityService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private parseLinks: JhiParseLinks,

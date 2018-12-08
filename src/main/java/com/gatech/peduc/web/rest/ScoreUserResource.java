@@ -2,8 +2,11 @@ package com.gatech.peduc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gatech.peduc.domain.ScoreUser;
+import com.gatech.peduc.domain.User;
 import com.gatech.peduc.repository.ScoreUserRepository;
+import com.gatech.peduc.repository.UserRepository;
 import com.gatech.peduc.repository.search.ScoreUserSearchRepository;
+import com.gatech.peduc.service.impl.LectureServiceImpl;
 import com.gatech.peduc.web.rest.errors.BadRequestAlertException;
 import com.gatech.peduc.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -37,10 +40,13 @@ public class ScoreUserResource {
     private ScoreUserRepository scoreUserRepository;
 
     private ScoreUserSearchRepository scoreUserSearchRepository;
+    private UserRepository userRepository;
+    private LectureServiceImpl lectureServiceImpl;
 
-    public ScoreUserResource(ScoreUserRepository scoreUserRepository, ScoreUserSearchRepository scoreUserSearchRepository) {
+    public ScoreUserResource(UserRepository userRepository, ScoreUserRepository scoreUserRepository, ScoreUserSearchRepository scoreUserSearchRepository) {
         this.scoreUserRepository = scoreUserRepository;
         this.scoreUserSearchRepository = scoreUserSearchRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -96,7 +102,9 @@ public class ScoreUserResource {
     @Timed
     public List<ScoreUser> getAllScoreUsers() {
         log.debug("REST request to get all ScoreUsers");
-        return scoreUserRepository.findAll();
+        User user = new User();
+        user=userRepository.findOneByLogin(lectureServiceImpl.getCurrentUserLogin()).get();
+        return scoreUserRepository.findByUserIsNotCurrentUser(user.getId());
     }
 
     /**

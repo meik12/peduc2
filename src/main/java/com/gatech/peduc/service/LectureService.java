@@ -19,7 +19,8 @@ public interface LectureService {
      * @return the persisted entity
      */
     Lecture save(Lecture lecture);
-
+   
+    
     /**
      * Get all the lectures.
      *
