@@ -1,15 +1,10 @@
 <div>
-    <h2 id="page-heading">
-        <span>Lectures</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lecture" [routerLink]="['/lecture/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down" >
-            Create new Lecture
-            </span>
-        </button>
-    </h2>
+    <h5 id="page-heading">
+        <span>Upcoming Lectures To Present</span>
+        
+    </h5>
     <jhi-alert></jhi-alert>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
@@ -23,77 +18,54 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
     <br/>
     <div class="table-responsive" *ngIf="lectures">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
-            <th jhiSortBy="category"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="topic"><span>Topic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="keyWord"><span>Key Word</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="duration"><span>Duration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!-- <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
-            <th jhiSortBy="language"><span>Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="videoCallLink"><span>Video Call Link</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="presentationDate"><span>Presentation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="timeZone"><span>Time Zone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="publicationDate"><span>Publication Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!-- <th jhiSortBy="peer.id"><span>Peer</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
-            <!-- <th jhiSortBy="user.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
-            <th></th>
-            </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let lecture of lectures ;trackBy: trackId">
-                <!-- <td><a [routerLink]="['/lecture', lecture.id, 'view' ]">{{lecture.id}}</a></td> -->
-                <td>{{lecture.category}}</td>
-                <td>{{lecture.topic}}</td>
-                <td>{{lecture.title}}</td>
-                <td>{{lecture.keyWord}}</td>
-                <td>{{lecture.duration}}</td>
-                <!-- <td>{{lecture.status}}</td> -->
-                <td>{{lecture.language}}</td>
-                <td>{{lecture.videoCallLink}}</td>
-                <td>{{lecture.presentationDate | date:'medium'}}</td>
-                <td>{{lecture.timeZone}}</td>
-                <td>{{lecture.publicationDate | date:'medium'}}</td>
-                <!-- <td>
-                    <div *ngIf="lecture.peer">
-                        <a [routerLink]="['../peer', lecture.peer?.id, 'view' ]" >{{lecture.peer?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    {{lecture.user?.id}}
-                </td> -->
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/lecture', lecture.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">change to Attende</span>
-                        </button>
-                        <!-- <button type="submit"
-                                [routerLink]="['/lecture', lecture.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'lecture/'+ lecture.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
-                        </button> -->
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <table class="table table-striped">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                    <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <!-- <th jhiSortBy="category"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="topic"><span>Topic</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <!-- <th jhiSortBy="keyWord"><span>Key Word</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th jhiSortBy="duration"><span>Duration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <!-- <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <!-- <th jhiSortBy="language"><span>Language</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th jhiSortBy="videoCallLink"><span>Video Call Link</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="presentationDate"><span>Presentation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <!-- <th jhiSortBy="timeZone"><span>Time Zone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    <th jhiSortBy="publicationDate"><span>Publication Date</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <!-- <th jhiSortBy="peer.id"><span>Peer</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <!-- <th jhiSortBy="user.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                    <tr *ngFor="let lecture of lectures ;trackBy: trackId">
+                        <!-- <td><a [routerLink]="['/lecture', lecture.id, 'view' ]">{{lecture.id}}</a></td> -->
+                        <!-- <td>{{lecture.category}}</td>
+                        <td>{{lecture.topic}}</td> -->
+                         <td>{{lecture.title}}</td> 
+                        <!-- <td>{{lecture.keyWord}}</td> -->
+                        <td>{{lecture.duration}}</td> 
+                        <!-- <td>{{lecture.status}}</td> -->
+                        <!-- <td>{{lecture.language}}</td> -->
+                        <td>{{lecture.videoCallLink}}</td>
+                        <td>{{lecture.presentationDate | date:'medium'}}</td>
+                        <!-- <td>{{lecture.timeZone}}</td>
+                        <td>{{lecture.publicationDate | date:'medium'}}</td> -->
+                        <!-- <td>
+                            <div *ngIf="lecture.peer">
+                                <a [routerLink]="['../peer', lecture.peer?.id, 'view' ]" >{{lecture.peer?.id}}</a>
+                            </div>
+                        </td>
+                        <td>
+                            {{lecture.user?.id}}
+                        </td> -->
+                        
+                    </tr>
+                    </tbody>
+                </table>
     </div>
 </div>

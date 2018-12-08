@@ -13,6 +13,7 @@ type EntityArrayResponseType = HttpResponse<IScoreUser[]>;
 export class ScoreUserService {
     public resourceUrl = SERVER_API_URL + 'api/score-users';
     public resourceSearchUrl = SERVER_API_URL + 'api/_search/score-users';
+    public resourceAverageUrl = SERVER_API_URL + 'api/score-users-average';
 
     constructor(private http: HttpClient) {}
 
@@ -31,6 +32,11 @@ export class ScoreUserService {
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IScoreUser[]>(this.resourceUrl, { params: options, observe: 'response' });
+    }
+
+    queryAverage(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IScoreUser[]>(this.resourceAverageUrl, { params: options, observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

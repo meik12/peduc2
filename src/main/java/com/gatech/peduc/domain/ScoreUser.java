@@ -1,6 +1,8 @@
 package com.gatech.peduc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -57,7 +59,15 @@ public class ScoreUser implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("")
     private LectureActivity lectureActivity;
+    public ScoreUser (){}
+    public ScoreUser(Long excellent, Long veryGood, Long fair, Long bad){
+        this.excellent = excellent.intValue();
+        this.veryGood = veryGood.intValue();
+        this.fair = fair.intValue();
+        this.bad = bad.intValue();
+        
 
+    }
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

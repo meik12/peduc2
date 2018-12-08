@@ -7,10 +7,11 @@ import { RouterModule } from '@angular/router';
 import { Peduc2SharedModule } from '../shared';
 
 import { PROFILE_ROUTE, ProfileComponent } from './';
+import { ScoreUserAverageComponent } from 'app/entities/score-user/score-user.average.component';
 
 @NgModule({
     imports: [Peduc2SharedModule, RouterModule.forRoot([PROFILE_ROUTE], { useHash: true })],
-    declarations: [ProfileComponent, ScoreComponent, LectureComponent, PastLectureComponent],
+    declarations: [ProfileComponent, ScoreComponent, ScoreUserAverageComponent, LectureComponent, PastLectureComponent],
     entryComponents: [],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

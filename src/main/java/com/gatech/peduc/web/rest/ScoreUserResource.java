@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -86,6 +87,7 @@ public class ScoreUserResource {
         if (scoreUser.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        scoreUser.setDescription("DONE");
         ScoreUser result = scoreUserRepository.save(scoreUser);
         scoreUserSearchRepository.save(result);
         return ResponseEntity.ok()
@@ -103,8 +105,9 @@ public class ScoreUserResource {
     public List<ScoreUser> getAllScoreUsers() {
         log.debug("REST request to get all ScoreUsers");
         User user = new User();
+        ZonedDateTime z = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0"));
         user=userRepository.findOneByLogin(lectureServiceImpl.getCurrentUserLogin()).get();
-        return scoreUserRepository.findByUserIsNotCurrentUser(user.getId());
+        return scoreUserRepository.findByUserIsNotCurrentUser(user.getId(), z);
     }
 
     /**
@@ -121,6 +124,16 @@ public class ScoreUserResource {
         return ResponseUtil.wrapOrNotFound(scoreUser);
     }
 
+    @GetMapping("/score-users-average")
+    @Timed
+    public List<ScoreUser> getAverageScore() {
+        log.debug("REST request to get ScoreUser : {}");
+        User user = new User();
+        user=userRepository.findOneByLogin(lectureServiceImpl.getCurrentUserLogin()).get();
+        List<ScoreUser> scoreUser = scoreUserRepository.getAverageScore(user.getId());
+       
+        return scoreUser;
+    }
     /**
      * DELETE  /score-users/:id : delete the "id" scoreUser.
      *
@@ -131,8 +144,10 @@ public class ScoreUserResource {
     @Timed
     public ResponseEntity<Void> deleteScoreUser(@PathVariable Long id) {
         log.debug("REST request to delete ScoreUser : {}", id);
-
-        scoreUserRepository.deleteById(id);
+        Optional<ScoreUser> scoreUser = scoreUserRepository.findById(id);
+        ScoreUser scoreUser2 = scoreUser.get();
+        scoreUser2.setDescription("CANCEL");
+        scoreUserRepository.save(scoreUser2);
         scoreUserSearchRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

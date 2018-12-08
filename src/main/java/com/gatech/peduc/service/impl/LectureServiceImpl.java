@@ -78,7 +78,10 @@ public class LectureServiceImpl implements LectureService {
     public Lecture save(Lecture lecture) {
         log.debug("Request to save Lecture : {}", lecture);
         User user=new User();
-        Long orignalId = lecture.getUser().getId();
+        Long orignalId = null;
+        try {
+            orignalId = lecture.getUser().getId();
+        } catch (NullPointerException ex){}
         user=userRepository.findOneByLogin(getCurrentUserLogin()).get();
         Boolean isNull = lecture.getPublicationDate()==null;
         lecture.setPublicationDate(Instant.now());
@@ -89,7 +92,7 @@ public class LectureServiceImpl implements LectureService {
         
         LectureActivity lectureActivity = new LectureActivity();
         ScoreUser scoreUser = new ScoreUser();
-        lectureActivity.setPresentingUserId(user.getId());
+        lectureActivity.setPresentingUserId(orignalId);
         lectureActivity.setLectureStatus(LectureStatus.ACTIVE);
         lectureActivity.setPostedDate(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+0")));
         lectureActivity.setPresentationDate(lecture.getPresentationDate());
